@@ -46,9 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\PaymentUtilityFacts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\apps\VirtualPOS.Garanti\VirtualPOS.Garanti.csproj">
+      <Project>{b4202e0a-4daf-4cb7-acf7-c12615fc82bb}</Project>
+      <Name>VirtualPOS.Garanti</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

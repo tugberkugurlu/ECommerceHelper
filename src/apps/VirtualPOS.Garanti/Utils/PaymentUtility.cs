@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,25 +10,60 @@ namespace VirtualPOS.Garanti {
     /// <summary>
     /// Utility class for this VirtualPOS project
     /// </summary>
-    internal class PaymentUtility {
+    public class PaymentUtility {
+
+        public static string EncodeExpireDate(int year, int month) {
+
+            if (year.ToString().Length != 4)
+                throw new ArgumentException("The length of the year is not 4.", "year");
+
+            var specialYear = year.ToString().Substring(2);
+            var speacialMonth = (month.ToString().Length == 1) ? string.Format("0{0}", month.ToString()) : month.ToString();
+
+            return string.Format(
+                "{0}{1}", specialYear, speacialMonth);
+        }
+
+        public static string EncodeDecimalPaymentAmount(decimal amount) {
+
+            return amount.ToString("0.00").TrimStart('0').Replace(",", "").Replace(".", "");
+        }
+
+        public static string GenerateHASHedData(
+            string terminalId, string properlyEncodedPaymentAmount, 
+            string terminalPassword) {
+            
+            return getSHA1(
+                string.Format("{0}{1}{2}{3}", 
+                    null, terminalId, properlyEncodedPaymentAmount,
+                    EncryptVirtualPOSCredentials(terminalId, terminalPassword)
+                )
+            ).ToUpper();
+        }
 
         /// <summary>
         /// Special encryption utility method for Garanti Bank Virtual POS Credentials
         /// </summary>
-        /// <param name="terminal_id">Terminal ID [Başına 0 eklenerek 9 digite tamamlanmalıdır.]</param>
-        /// <param name="terminal_userid_password">Terminal UserID şifresi</param>
+        /// <param name="terminalId">Terminal ID [Başına 0 eklenerek 9 digite tamamlanmalıdır.]</param>
+        /// <param name="terminalUserIdPassword">Terminal UserID şifresi</param>
         /// <returns></returns>
-        public static string EncryptVirtualPOSCredentials(string terminal_id, string terminal_userid_password) {
+        public static string EncryptVirtualPOSCredentials(string terminalId, string terminalUserIdPassword) {
+
+            if (string.IsNullOrEmpty(terminalId))
+                throw new ArgumentNullException("terminalId");
+
+            if (string.IsNullOrEmpty(terminalUserIdPassword))
+                throw new ArgumentNullException("terminalUserIdPassword");
 
             //if the terminal id Lenght is less than 9 digit
-            if (terminal_id.Length != 9) {
+            if (terminalId.Length != 9) {
 
-                var leftoverLenght = 9 - terminal_id.Length;
+                var leftoverLenght = 9 - terminalId.Length;
                 for (int i = 0; i < leftoverLenght; i++)
-                    terminal_id = String.Format("0{0}", terminal_id);
+                    terminalId = String.Format("0{0}", terminalId);
             }
 
-            string encryptedValue = String.Format("{0}{1}", terminal_userid_password, terminal_id);
+            string encryptedValue = String.Format("{0}{1}", terminalUserIdPassword, terminalId);
 
             return getSHA1(encryptedValue).ToUpper();
         }
