@@ -11,6 +11,8 @@ dist
 
 *~
 
+docs
+
 *.swp
 TestResult.xml
 *.testsettings
