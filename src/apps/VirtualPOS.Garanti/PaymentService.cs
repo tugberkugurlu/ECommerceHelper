@@ -67,7 +67,7 @@ namespace VirtualPOS.Garanti {
             _httpClient = new HttpClient();
         }
 
-        public async Task<PaymentResponseContext> ProcessPayment(PaymentRequestContext paymentRequest) {
+        public async Task<PaymentResponseContext> ProcessPaymentAsync(PaymentRequestContext paymentRequest) {
 
             if (paymentRequest == null)
                 throw new ArgumentNullException("paymentRequest");
@@ -110,6 +110,8 @@ namespace VirtualPOS.Garanti {
 
             return new PaymentServiceDescriptor {
 
+                ModeString = _mode.ToString(),
+                Version = _version,
                 Terminal = new Terminal {
                     MerchantID = _merchantId,
                     ID = _terminalId,
@@ -167,7 +169,9 @@ namespace VirtualPOS.Garanti {
 
         private async Task<PaymentResponseContext> processPaymentRequest(string requestXML) {
 
-            var content = new StringContent(requestXML);
+            var formattedContent = string.Format("data={0}", requestXML);
+
+            var content = new StringContent(formattedContent);
             content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
             var response = await _httpClient.PostAsync(

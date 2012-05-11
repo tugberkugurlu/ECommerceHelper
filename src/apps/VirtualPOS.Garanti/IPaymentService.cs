@@ -8,6 +8,6 @@ namespace VirtualPOS.Garanti {
 
     public interface IPaymentService : IDisposable {
 
-        Task<PaymentResponseContext> ProcessPayment(PaymentRequestContext paymentRequest);
+        Task<PaymentResponseContext> ProcessPaymentAsync(PaymentRequestContext paymentRequest);
     }
 }

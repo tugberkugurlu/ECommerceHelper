@@ -47,7 +47,7 @@ namespace VirtualPOS.Garanti {
         /// <param name="terminalId">Terminal ID [Başına 0 eklenerek 9 digite tamamlanmalıdır.]</param>
         /// <param name="terminalUserIdPassword">Terminal UserID şifresi</param>
         /// <returns></returns>
-        public static string EncryptVirtualPOSCredentials(string terminalId, string terminalUserIdPassword) {
+        private static string EncryptVirtualPOSCredentials(string terminalId, string terminalUserIdPassword) {
 
             if (string.IsNullOrEmpty(terminalId))
                 throw new ArgumentNullException("terminalId");
