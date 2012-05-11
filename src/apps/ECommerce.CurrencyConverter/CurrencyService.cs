@@ -17,10 +17,12 @@ namespace ECommerce.CurrencyConverter {
     public class CurrencyService : ICurrencyService {
 
         private readonly HttpClient _httpClient;
+        private readonly HttpContext _currentHttpContext;
 
         public CurrencyService() {
 
             _httpClient = new HttpClient();
+            _currentHttpContext = HttpContext.Current;
         }
 
         public async Task<ConvertResponseContext> ConvertAsync(decimal amount, CurrencyCode fromCurrency) {
@@ -85,6 +87,7 @@ namespace ECommerce.CurrencyConverter {
                     return new ConvertResponseContext {
                         IsConvertSuccessful = true,
                         BaseAmount = amount,
+                        BaseCurrencyRate = ___currenyRate,
                         ConvertedFrom = fromCurrency,
                         ConvertedTo = toCurrency,
                         ConvertedAmount = decimal.Round(___convertedAmount, 2)
@@ -125,6 +128,7 @@ namespace ECommerce.CurrencyConverter {
                     return new ConvertResponseContext {
                         IsConvertSuccessful = true,
                         BaseAmount = amount,
+                        BaseCurrencyRate = ___currenyRate,
                         ConvertedFrom = fromCurrency,
                         ConvertedTo = toCurrency,
                         ConvertedAmount = decimal.Round(___convertedAmount, 2)
@@ -160,9 +164,9 @@ namespace ECommerce.CurrencyConverter {
         private async Task<RatesStatus> getRatesStatusAsync() {
 
             //NOTE: See if HttpContext.Current is null or not first.
-            if (HttpContext.Current != null) {
+            if (_currentHttpContext != null) {
 
-                var cachedRatesStatusObj = HttpContext.Current.Cache[Constants.RATESSTATUS_CACHE_KEY_NAME];
+                var cachedRatesStatusObj = _currentHttpContext.Cache[Constants.RATESSTATUS_CACHE_KEY_NAME];
                 if (cachedRatesStatusObj != null)
                     return (RatesStatus)cachedRatesStatusObj;
             }
@@ -189,7 +193,7 @@ namespace ECommerce.CurrencyConverter {
                 throw new ArgumentNullException("ratesStatus");
 
             //NOTE: See if HttpContext.Current is null or not first.
-            if (HttpContext.Current == null)
+            if (_currentHttpContext == null)
                 return;
 
             var ratesStatusDate = DateTime.ParseExact(
@@ -198,7 +202,7 @@ namespace ECommerce.CurrencyConverter {
 
             //NOTE: According to TCMB, the currency rates are changed after 15:30
             //in every business day. We are setting this accordingly.
-            var cacheAbsoluteExpirationDate = ratesStatusDate.AddHours(15).AddMinutes(31);
+            var cacheAbsoluteExpirationDate = ratesStatusDate.AddDays(1).AddHours(15).AddMinutes(31);
 
             //NOTE: If the date when the xml doc has been created is not a business date
             //then, cacheAbsoluteExpirationDate might set to a date which is before now.
@@ -208,7 +212,7 @@ namespace ECommerce.CurrencyConverter {
                 cacheAbsoluteExpirationDate = todayAbsoluteExpirationDate.AddDays(1);
 
             //Add the cache properly
-            HttpContext.Current.Cache.Add(
+            _currentHttpContext.Cache.Add(
                 Constants.RATESSTATUS_CACHE_KEY_NAME,
                 ratesStatus,
                 null,

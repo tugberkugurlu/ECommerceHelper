@@ -7,10 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using VirtualPOS.Garanti.Descriptor;
+using ECommerce.VirtualPOS.Garanti.Descriptor;
 using System.Net.Http.Formatting;
 
-namespace VirtualPOS.Garanti {
+namespace ECommerce.VirtualPOS.Garanti {
 
     public class PaymentService : IPaymentService {
 

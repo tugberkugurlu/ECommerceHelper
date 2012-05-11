@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace VirtualPOS.Garanti.Test.Utils {
+namespace ECommerce.VirtualPOS.Garanti.Test.Utils {
 
     public class PaymentUtilityFacts {
 

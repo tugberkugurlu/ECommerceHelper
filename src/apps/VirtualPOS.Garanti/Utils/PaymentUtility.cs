@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace VirtualPOS.Garanti {
+namespace ECommerce.VirtualPOS.Garanti {
 
     /// <summary>
     /// Utility class for this VirtualPOS project

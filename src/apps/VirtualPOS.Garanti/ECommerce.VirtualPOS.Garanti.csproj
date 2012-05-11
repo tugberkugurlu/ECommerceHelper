@@ -7,8 +7,8 @@
     <ProjectGuid>{B4202E0A-4DAF-4CB7-ACF7-C12615FC82BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualPOS.Garanti</RootNamespace>
-    <AssemblyName>VirtualPOS.Garanti</AssemblyName>
+    <RootNamespace>ECommerce.VirtualPOS.Garanti</RootNamespace>
+    <AssemblyName>ECommerce.VirtualPOS.Garanti</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

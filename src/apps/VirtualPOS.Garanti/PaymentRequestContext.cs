@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using ECommerce.Common;
 
-namespace VirtualPOS.Garanti {
+namespace ECommerce.VirtualPOS.Garanti {
 
     /// <summary>
     /// Context class for the payment. Holds the payment necessary details.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace VirtualPOS.Garanti.Descriptor {
+namespace ECommerce.VirtualPOS.Garanti.Descriptor {
 
     [Serializable]
     [XmlRoot("GVPSRequest")]

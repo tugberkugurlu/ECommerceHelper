@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace VirtualPOS.Garanti {
+namespace ECommerce.VirtualPOS.Garanti {
 
     public class PaymentResponseContext {
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VirtualPOS.Garanti {
+namespace ECommerce.VirtualPOS.Garanti {
 
     public interface IPaymentService : IDisposable {
 

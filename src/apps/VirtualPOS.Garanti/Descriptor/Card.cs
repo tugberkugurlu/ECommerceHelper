@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VirtualPOS.Garanti.Descriptor {
+namespace ECommerce.VirtualPOS.Garanti.Descriptor {
 
     [Serializable]
     public class Card {
