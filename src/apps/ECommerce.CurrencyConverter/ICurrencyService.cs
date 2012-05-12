@@ -8,10 +8,9 @@ using ECommerce.CurrencyConverter.Descriptor;
 
 namespace ECommerce.CurrencyConverter {
 
-    public interface ICurrencyService : IDisposable {
+    public interface ICurrencyService {
 
         Task<ConvertResponseContext> ConvertAsync(decimal amount, CurrencyCode fromCurrency);
         Task<ConvertResponseContext> ConvertAsync(decimal amount, CurrencyCode fromCurrency, CurrencyCode toCurrency);
-        Task<RatesStatus> GetRatesStatusAsync();
     }
 }

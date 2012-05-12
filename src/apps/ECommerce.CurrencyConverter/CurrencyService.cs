@@ -16,14 +16,7 @@ namespace ECommerce.CurrencyConverter {
 
     public class CurrencyService : ICurrencyService {
 
-        private readonly HttpClient _httpClient;
-        private readonly HttpContext _currentHttpContext;
-
-        public CurrencyService() {
-
-            _httpClient = new HttpClient();
-            _currentHttpContext = HttpContext.Current;
-        }
+        private HttpContext _currentHttpContext;
 
         public async Task<ConvertResponseContext> ConvertAsync(decimal amount, CurrencyCode fromCurrency) {
 
@@ -41,7 +34,11 @@ namespace ECommerce.CurrencyConverter {
             if (fromCurrency == toCurrency)
                 throw new ArgumentException("fromCurrency and toCurrency paramaters cannot be the same");
 
-            var ratesStatus = await GetRatesStatusAsync();
+            //NOTE: HttpContext.Current nulls itself after async call
+            //get a reference of it and work on that one.
+            _currentHttpContext = HttpContext.Current;
+
+            var ratesStatus = await getRatesStatusAsync();
 
             var fromCurrencyStr = fromCurrency.ToString();
             var toCurrencyStr = toCurrency.ToString();
@@ -150,16 +147,6 @@ namespace ECommerce.CurrencyConverter {
             }
         }
 
-        public async Task<RatesStatus> GetRatesStatusAsync() {
-
-            return await getRatesStatusAsync();
-        }
-
-        public void Dispose() {
-
-            _httpClient.Dispose();
-        }
-
         //private helpers
         private async Task<RatesStatus> getRatesStatusAsync() {
 
@@ -171,19 +158,22 @@ namespace ECommerce.CurrencyConverter {
                     return (RatesStatus)cachedRatesStatusObj;
             }
 
-            var responseString = await _httpClient.GetStringAsync(
-                Constants.BASE_CURRENCY_RATES_REQUEST_ADDRESS
-            );
+            using (HttpClient httpClient = new HttpClient()) {
 
-            XmlSerializer serializer = new XmlSerializer(typeof(RatesStatus));
-            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(responseString))) {
+                var responseString = await httpClient.GetStringAsync(
+                    Constants.BASE_CURRENCY_RATES_REQUEST_ADDRESS
+                );
 
-                var ratesStatus = (RatesStatus)serializer.Deserialize(ms);
+                XmlSerializer serializer = new XmlSerializer(typeof(RatesStatus));
+                using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(responseString))) {
 
-                //NOTE: try to cache the object before returning
-                cacheRatesStatusObject(ratesStatus);
+                    var ratesStatus = (RatesStatus)serializer.Deserialize(ms);
 
-                return ratesStatus;
+                    //NOTE: try to cache the object before returning
+                    cacheRatesStatusObject(ratesStatus);
+
+                    return ratesStatus;
+                }
             }
         }
 
