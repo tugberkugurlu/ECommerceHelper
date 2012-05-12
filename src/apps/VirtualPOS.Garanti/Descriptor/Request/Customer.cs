@@ -7,12 +7,9 @@ using System.Xml.Serialization;
 namespace ECommerce.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    public class Customer {
+    internal class Customer {
 
-        [XmlElement("IPAddress")]
         public string IPAddress { get; set; }
-
-        [XmlElement("EmailAddress")]
         public string EmailAddress { get; set; }
     }
 }

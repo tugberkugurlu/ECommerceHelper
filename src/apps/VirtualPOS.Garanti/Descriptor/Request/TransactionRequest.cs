@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace ECommerce.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    public class TransactionRequest {
+    internal class TransactionRequest {
 
         /// <summary>
         /// Defines the type of operation in digits in regards of CardholderPresentCode public property.
@@ -16,10 +16,8 @@ namespace ECommerce.VirtualPOS.Garanti.Descriptor.Request {
         [XmlElement("CardholderPresentCode")]
         public int CardholderPresentCodeDigit { get; set; }
 
-        [XmlElement("Type")]
         public string Type { get; set; }
 
-        [XmlElement("InstallmentCnt")]
         public string InstallmentCnt { get; set; }
         
         [XmlElement("Amount")]

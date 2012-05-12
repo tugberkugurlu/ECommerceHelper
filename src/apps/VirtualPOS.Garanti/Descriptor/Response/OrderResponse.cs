@@ -9,7 +9,6 @@ namespace ECommerce.VirtualPOS.Garanti.Descriptor.Response {
     [Serializable]
     public class OrderResponse {
 
-        [XmlElement("OrderID")]
         public string OrderID { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace ECommerce.VirtualPOS.Garanti {
     /// </summary>
     public class PaymentUtility {
 
-        public static string EncodeExpireDate(int year, int month) {
+        public static string EncodeExpireDate(int month, int year) {
 
             if (year.ToString().Length != 4)
                 throw new ArgumentException("The length of the year is not 4.", "year");
@@ -21,7 +21,8 @@ namespace ECommerce.VirtualPOS.Garanti {
             var speacialMonth = (month.ToString().Length == 1) ? string.Format("0{0}", month.ToString()) : month.ToString();
 
             return string.Format(
-                "{0}{1}", specialYear, speacialMonth);
+                "{0}{1}", speacialMonth, specialYear
+            );
         }
 
         public static string EncodeDecimalPaymentAmount(decimal amount) {
@@ -30,12 +31,12 @@ namespace ECommerce.VirtualPOS.Garanti {
         }
 
         public static string GenerateHASHedData(
-            string terminalId, string properlyEncodedPaymentAmount, 
+            string terminalId, string creditCardNumber, string properlyEncodedPaymentAmount, 
             string terminalPassword) {
             
             return getSHA1(
-                string.Format("{0}{1}{2}{3}", 
-                    null, terminalId, properlyEncodedPaymentAmount,
+                string.Format("{0}{1}{2}{3}{4}", 
+                    null, terminalId, creditCardNumber, properlyEncodedPaymentAmount,
                     EncryptVirtualPOSCredentials(terminalId, terminalPassword)
                 )
             ).ToUpper();

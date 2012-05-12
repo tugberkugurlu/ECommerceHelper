@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
+using System.Net.Http.Formatting;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using ECommerce.VirtualPOS.Garanti.Descriptor;
-using System.Net.Http.Formatting;
 using ECommerce.VirtualPOS.Garanti.Descriptor.Response;
-using System.IO;
 using ECommerce.VirtualPOS.Garanti.Descriptor.Request;
 
 namespace ECommerce.VirtualPOS.Garanti {
@@ -121,7 +122,7 @@ namespace ECommerce.VirtualPOS.Garanti {
             return valResults;
         }
 
-        public PaymentServiceDescriptor createPaymentServiceDescriptor(PaymentRequestContext paymentRequest) {
+        private PaymentServiceDescriptor createPaymentServiceDescriptor(PaymentRequestContext paymentRequest) {
 
             return new PaymentServiceDescriptor {
 
@@ -134,6 +135,7 @@ namespace ECommerce.VirtualPOS.Garanti {
                     UserID = _userId,
                     HashData = PaymentUtility.GenerateHASHedData(
                         _terminalId,
+                        paymentRequest.CreditCardNumber,
                         PaymentUtility.EncodeDecimalPaymentAmount(
                             paymentRequest.PaymentAmount
                         ),
@@ -147,15 +149,15 @@ namespace ECommerce.VirtualPOS.Garanti {
                 Card = new Card {
                     Number = paymentRequest.CreditCardNumber,
                     ExpireDate = PaymentUtility.EncodeExpireDate(
-                        paymentRequest.CCExpireDateYear, paymentRequest.CCExpireDateMonth
+                        paymentRequest.CCExpireDateMonth, paymentRequest.CCExpireDateYear
                     ),
-                    CVV2 = string.Empty
+                    CVV2 = paymentRequest.CVV2
                 },
                 Transaction = new TransactionRequest {
                     CardholderPresentCodeDigit = _cardholderPresentCode.GetHashCode(),
                     AmountString = PaymentUtility.EncodeDecimalPaymentAmount(paymentRequest.PaymentAmount),
                     CurrencyCodeDigit = paymentRequest.CurrencyCode.GetHashCode(),
-                    Type = OperationType.Sales.ToString().ToUpper(),
+                    Type = OperationType.Sales.ToString().ToLower(),
                     InstallmentCnt = string.Empty
                 },
                 Order = new OrderRequest { 
@@ -165,7 +167,7 @@ namespace ECommerce.VirtualPOS.Garanti {
             };
         }
 
-        public string seserializePaymentRequest(PaymentServiceDescriptor paymentServiceDescriptor) {
+        private string seserializePaymentRequest(PaymentServiceDescriptor paymentServiceDescriptor) {
 
             XmlSerializer serializer = new XmlSerializer(typeof(PaymentServiceDescriptor));
 
@@ -194,7 +196,7 @@ namespace ECommerce.VirtualPOS.Garanti {
                 Constants.BASE_VIRTUAL_POS_REQUEST_ADDRESS, content
             );
 
-            var stringContent = await response.Content.ReadAsAsync<string>();
+            var stringContent = await response.Content.ReadAsStringAsync();
             var paymentResponseCtx = deseserializePaymentResponse(stringContent);
 
             return paymentResponseCtx;

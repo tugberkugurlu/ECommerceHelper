@@ -16,23 +16,11 @@ namespace ECommerce.VirtualPOS.Garanti.Descriptor.Response {
             } 
         }
 
-        [XmlElement("Source")]
         public string Source { get; set; }
-        
-        [XmlElement("Code")]
         public string Code { get; set; }
-        
-        [XmlElement("ReasonCode")]
         public string ReasonCode { get; set; }
-        
-        [XmlElement("Message")]
         public string Message { get; set; }
-        
-        [XmlElement("ErrorMsg")]
         public string ErrorMsg { get; set; }
-
-        [XmlElement("SysErrMsg")]
         public string SysErrMsg { get; set; }
-
     }
 }

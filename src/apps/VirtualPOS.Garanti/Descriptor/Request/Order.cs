@@ -7,12 +7,9 @@ using System.Xml.Serialization;
 namespace ECommerce.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    public class OrderRequest {
+    internal class OrderRequest {
 
-        [XmlElement("OrderID")]
         public string OrderID { get; set; }
-
-        [XmlElement("GroupID")]
         public string GroupID { get; set; }
     }
 }
