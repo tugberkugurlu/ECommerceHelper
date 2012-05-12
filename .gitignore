@@ -13,6 +13,7 @@ dist
 
 docs
 packages
+Artifacts
 
 *.swp
 TestResult.xml

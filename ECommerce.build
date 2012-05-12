@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0"
+         DefaultTargets="Compile">
+  
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <BuildArtifacts Include=".\artifacts" />
+    <Solutionfile Include=".\ECommerce.sln" />
+  </ItemGroup>
+  
+  <Target Name="Clean">
+    <RemoveDir Directories="@(BuildArtifacts)" />
+  </Target>
+
+  <Target Name="Init" DependsOnTargets="Clean">
+    <MakeDir Directories="@(BuildArtifacts)" />
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="Init">
+    <MSBuild Projects="@(Solutionfile)" Targets="Rebuild" Properties="OutDir=%(BuildArtifacts.FullPath);Configuration=$(Configuration)" />
+  </Target>
+  
+</Project>
