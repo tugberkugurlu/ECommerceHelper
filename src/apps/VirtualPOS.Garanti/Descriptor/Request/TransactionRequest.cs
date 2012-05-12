@@ -16,6 +16,9 @@ namespace ECommerce.VirtualPOS.Garanti.Descriptor.Request {
         [XmlElement("CardholderPresentCode")]
         public int CardholderPresentCodeDigit { get; set; }
 
+        /// <summary>
+        /// Note that this field needs to be sent as lowercase
+        /// </summary>
         public string Type { get; set; }
 
         public string InstallmentCnt { get; set; }
