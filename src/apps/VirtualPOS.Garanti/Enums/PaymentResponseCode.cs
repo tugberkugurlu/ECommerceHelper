@@ -7,6 +7,8 @@ namespace ECommerce.VirtualPOS.Garanti {
 
     public enum PaymentResponseCode {
 
-        InvalidPaymentRequestContext
+        InvalidPaymentRequestContext,
+        Successful,
+        Unsuccessful
     }
 }

@@ -61,14 +61,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Descriptor\Card.cs" />
-    <Compile Include="Descriptor\Customer.cs" />
-    <Compile Include="Descriptor\Order.cs" />
-    <Compile Include="Descriptor\Terminal.cs" />
-    <Compile Include="Descriptor\Transaction.cs" />
+    <Compile Include="Descriptor\Request\Card.cs" />
+    <Compile Include="Descriptor\Request\Customer.cs" />
+    <Compile Include="Descriptor\Request\Order.cs" />
+    <Compile Include="Descriptor\Response\OrderResponse.cs" />
+    <Compile Include="Descriptor\Response\PaymentResponseDescriptor.cs" />
+    <Compile Include="Descriptor\Response\Response.cs" />
+    <Compile Include="Descriptor\Response\TransactionResponse.cs" />
+    <Compile Include="Descriptor\Request\Terminal.cs" />
+    <Compile Include="Descriptor\Request\TransactionRequest.cs" />
+    <Compile Include="Enums\BankResponseCode.cs" />
     <Compile Include="Enums\CardholderPresentCode.cs" />
     <Compile Include="Enums\Mode.cs" />
-    <Compile Include="Descriptor\PaymentServiceDescriptor.cs" />
+    <Compile Include="Descriptor\Request\PaymentServiceDescriptor.cs" />
+    <Compile Include="Enums\OperationType.cs" />
     <Compile Include="Internal\Constants.cs" />
     <Compile Include="Enums\PaymentResponseCode.cs" />
     <Compile Include="IPaymentService.cs" />
@@ -91,6 +97,7 @@
       <Name>ECommerce.CurrencyConverter</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

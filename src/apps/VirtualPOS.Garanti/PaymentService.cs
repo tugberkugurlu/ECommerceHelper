@@ -9,6 +9,9 @@ using System.Xml;
 using System.Xml.Serialization;
 using ECommerce.VirtualPOS.Garanti.Descriptor;
 using System.Net.Http.Formatting;
+using ECommerce.VirtualPOS.Garanti.Descriptor.Response;
+using System.IO;
+using ECommerce.VirtualPOS.Garanti.Descriptor.Request;
 
 namespace ECommerce.VirtualPOS.Garanti {
 
@@ -22,12 +25,13 @@ namespace ECommerce.VirtualPOS.Garanti {
         private readonly string _terminalPassword;
         private readonly string _userId;
         private readonly Mode _mode;
+        private readonly CardholderPresentCode _cardholderPresentCode;
 
         private readonly HttpClient _httpClient;
 
         public PaymentService(
             string merchantId, string terminalId, string provisionUserId, 
-            string terminalPassword) : this(merchantId, terminalId, provisionUserId, terminalPassword, "INTENET_SALE") {
+            string terminalPassword) : this(merchantId, terminalId, provisionUserId, terminalPassword, "INTSALE") {
         }
 
         public PaymentService(
@@ -37,7 +41,13 @@ namespace ECommerce.VirtualPOS.Garanti {
 
         public PaymentService(
             string merchantId, string terminalId, string provisionUserId,
-            string terminalPassword, string userId, Mode mode) {
+            string terminalPassword, string userId, Mode mode)
+            : this(merchantId, terminalId, provisionUserId, terminalPassword, userId, Mode.PROD, CardholderPresentCode.Normal) {
+        }
+
+        public PaymentService(
+            string merchantId, string terminalId, string provisionUserId,
+            string terminalPassword, string userId, Mode mode, CardholderPresentCode cardholderPresentCode) {
 
             if(string.IsNullOrEmpty(merchantId))
                 throw new ArgumentNullException("merchantId");
@@ -57,17 +67,22 @@ namespace ECommerce.VirtualPOS.Garanti {
             if(!Enum.IsDefined(typeof(Mode), mode))
                 throw new ArgumentNullException("mode");
 
+            //NOTE: 3D is not supported for now
+            if (cardholderPresentCode == CardholderPresentCode.ThreeD)
+                throw new NotSupportedException("3D transactions is not supported for now.");
+
             _merchantId = merchantId;
             _terminalId = terminalId;
             _provisionUserId = provisionUserId;
             _terminalPassword = terminalPassword;
             _userId = userId;
             _mode = mode;
+            _cardholderPresentCode = cardholderPresentCode;
 
             _httpClient = new HttpClient();
         }
 
-        public async Task<PaymentResponseContext> ProcessPaymentAsync(PaymentRequestContext paymentRequest) {
+        public async Task<PaymentResponseContext> ProcessSaleAsync(PaymentRequestContext paymentRequest) {
 
             if (paymentRequest == null)
                 throw new ArgumentNullException("paymentRequest");
@@ -78,7 +93,7 @@ namespace ECommerce.VirtualPOS.Garanti {
 
                 return new PaymentResponseContext {
 
-                    PaymentResponseCode = PaymentResponseCode.InvalidPaymentRequestContext,
+                    ResponseCode = PaymentResponseCode.InvalidPaymentRequestContext,
                     ValidationResults = ctxValResults
                 };
             }
@@ -136,14 +151,14 @@ namespace ECommerce.VirtualPOS.Garanti {
                     ),
                     CVV2 = string.Empty
                 },
-                Transaction = new Transaction {
-                    CardholderPresentCodeDigit = CardholderPresentCode.Normal.GetHashCode(),
+                Transaction = new TransactionRequest {
+                    CardholderPresentCodeDigit = _cardholderPresentCode.GetHashCode(),
                     AmountString = PaymentUtility.EncodeDecimalPaymentAmount(paymentRequest.PaymentAmount),
                     CurrencyCodeDigit = paymentRequest.CurrencyCode.GetHashCode(),
-                    Type = "Sales",
+                    Type = OperationType.Sales.ToString().ToUpper(),
                     InstallmentCnt = string.Empty
                 },
-                Order = new Order { 
+                Order = new OrderRequest { 
                     GroupID = string.Empty,
                     OrderID = string.Empty
                 }
@@ -171,6 +186,7 @@ namespace ECommerce.VirtualPOS.Garanti {
 
             var formattedContent = string.Format("data={0}", requestXML);
 
+            //NOTE: Garanti Bank accepts the request as application/x-www-form-urlencoded
             var content = new StringContent(formattedContent);
             content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
@@ -186,7 +202,16 @@ namespace ECommerce.VirtualPOS.Garanti {
 
         private PaymentResponseContext deseserializePaymentResponse(string paymentResponseString) {
 
-            throw new NotImplementedException();
+            XmlSerializer serializer = new XmlSerializer(typeof(PaymentResponseDescriptor));
+            using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(paymentResponseString))) {
+
+                var paymentResponseDescriptor = (PaymentResponseDescriptor)serializer.Deserialize(ms);
+
+                return new PaymentResponseContext { 
+                    ResponseCode = paymentResponseDescriptor.Transaction.Response.ResponseCode,
+                    PaymentResponseDescriptor = paymentResponseDescriptor
+                };
+            }
         }
 
         public void Dispose() {

@@ -8,7 +8,7 @@ using ECommerce.Common;
 namespace ECommerce.VirtualPOS.Garanti {
 
     /// <summary>
-    /// Context class for the payment. Holds the payment necessary details.
+    /// Context class for the sale. Holds the payment necessary details.
     /// </summary>
     public class PaymentRequestContext {
 
