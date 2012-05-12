@@ -12,6 +12,7 @@ dist
 *~
 
 docs
+packages
 
 *.swp
 TestResult.xml
