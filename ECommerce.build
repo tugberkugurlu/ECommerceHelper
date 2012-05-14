@@ -10,18 +10,17 @@
   <ItemGroup>
     <BuildArtifacts Include=".\artifacts" />
     <Solutionfile Include=".\ECommerce.sln" />
+    <AppProjFiles Include=".\src\apps\**\*.csproj" />
+    <TestProjFiles Include=".\src\test\**\*.csproj" />
   </ItemGroup>
   
   <Target Name="Clean">
     <RemoveDir Directories="@(BuildArtifacts)" />
   </Target>
-
   <Target Name="Init" DependsOnTargets="Clean">
     <MakeDir Directories="@(BuildArtifacts)" />
   </Target>
-
   <Target Name="Compile" DependsOnTargets="Init">
-    <MSBuild Projects="@(Solutionfile)" Targets="Rebuild" Properties="OutDir=%(BuildArtifacts.FullPath);Configuration=$(Configuration)" />
+    <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" Properties="OutDir=%(BuildArtifacts.FullPath);Configuration=$(Configuration)" />
   </Target>
-  
 </Project>
