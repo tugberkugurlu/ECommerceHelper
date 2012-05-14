@@ -54,7 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\apps\VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj">
+    <ProjectReference Include="..\..\apps\ECommerce.VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj">
       <Project>{b4202e0a-4daf-4cb7-acf7-c12615fc82bb}</Project>
       <Name>ECommerce.VirtualPOS.Garanti</Name>
     </ProjectReference>
