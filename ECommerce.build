@@ -18,6 +18,7 @@
     <ECommerceCommonProjFile Include=".\src\apps\ECommerce.Common\ECommerce.Common.csproj" />
     <ECommerceCurrencyConverterProjFile Include=".\src\apps\ECommerce.CurrencyConverter\ECommerce.CurrencyConverter.csproj" />
     <ECommerceVirtualPOSGarantiProjFile Include=".\src\apps\ECommerce.VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj" />
+    <ECommerceNuspecFile Include=".\src\apps\ECommerce\ECommerce.nuspec" />
   </ItemGroup>
 
   <Target Name="Default" DependsOnTargets="Compile; Package" />
@@ -35,6 +36,7 @@
     <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerce.Common\ECommerce.Common.csproj -OutputDirectory ..\artifacts\packages" />
     <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerce.CurrencyConverter\ECommerce.CurrencyConverter.csproj -OutputDirectory ..\artifacts\packages" />
     <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerce.VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj -OutputDirectory ..\artifacts\packages" />
+    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerce\ECommerce.nuspec -OutputDirectory ..\artifacts\packages" />
   </Target>
   
 </Project>
