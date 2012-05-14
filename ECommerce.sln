@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 11
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.VirtualPOS.Garanti", "src\apps\VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj", "{B4202E0A-4DAF-4CB7-ACF7-C12615FC82BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.VirtualPOS.Garanti", "src\apps\ECommerce.VirtualPOS.Garanti\ECommerce.VirtualPOS.Garanti.csproj", "{B4202E0A-4DAF-4CB7-ACF7-C12615FC82BB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{1D04011B-D4FE-4D99-9B50-A45379DD3FD8}"
 EndProject
