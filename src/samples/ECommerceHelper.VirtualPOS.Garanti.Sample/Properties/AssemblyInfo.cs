@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ECommerce.VirtualPOS.Garanti.Sample")]
+[assembly: AssemblyTitle("ECommerceHelper.VirtualPOS.Garanti.Sample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Toshiba")]
-[assembly: AssemblyProduct("ECommerce.VirtualPOS.Garanti.Sample")]
-[assembly: AssemblyCopyright("Copyright © Toshiba 2012")]
+[assembly: AssemblyCompany("Tugberk Ugurlu")]
+[assembly: AssemblyProduct("ECommerceHelper.VirtualPOS.Garanti.Sample")]
+[assembly: AssemblyCopyright("Copyright © Tugberk Ugurlu 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

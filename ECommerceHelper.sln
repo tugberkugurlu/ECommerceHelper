@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CF019D28
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C118F0D2-0162-42CD-9873-430FB39F73FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.VirtualPOS.Garanti.Sample", "src\samples\ECommerce.VirtualPOS.Garanti.Sample\ECommerce.VirtualPOS.Garanti.Sample.csproj", "{23CF8538-324A-4C98-876A-000BB1424DD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerceHelper.VirtualPOS.Garanti.Sample", "src\samples\ECommerceHelper.VirtualPOS.Garanti.Sample\ECommerceHelper.VirtualPOS.Garanti.Sample.csproj", "{23CF8538-324A-4C98-876A-000BB1424DD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
