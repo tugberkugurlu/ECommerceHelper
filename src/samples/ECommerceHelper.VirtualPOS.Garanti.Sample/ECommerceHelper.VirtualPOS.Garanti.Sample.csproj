@@ -45,6 +45,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ECommerceHelper.Common">
+      <HintPath>..\..\..\packages\ECommerceHelper.Common.0.2.0.0\lib\net40\ECommerceHelper.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ECommerceHelper.VirtualPOS.Garanti">
+      <HintPath>..\..\..\packages\ECommerceHelper.VirtualPOS.Garanti.0.2.0.0\lib\net40\ECommerceHelper.VirtualPOS.Garanti.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CompilerServices.AsyncTargetingPack.Net4">
+      <HintPath>..\..\..\packages\Microsoft.CompilerServices.AsyncTargetingPack.1.0.0\lib\net40\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>

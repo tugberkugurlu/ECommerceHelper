@@ -12,5 +12,13 @@ namespace ECommerceHelper.VirtualPOS.Garanti.Sample.Controllers {
 
             return View();
         }
+
+        [HttpPost]
+        [ActionName("Index")]
+        public ActionResult Index_post() {
+
+            return View();
+        }
+
     }
 }
