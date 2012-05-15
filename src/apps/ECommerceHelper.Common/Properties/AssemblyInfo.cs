@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ECommerce.Common")]
-[assembly: AssemblyDescription("ECommerce common library")]
+[assembly: AssemblyTitle("ECommerceHelper.Common")]
+[assembly: AssemblyDescription("eCommerce helper common library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tugberk Ugurlu")]
-[assembly: AssemblyProduct("ECommerce.Common")]
+[assembly: AssemblyProduct("ECommerceHelper.Common")]
 [assembly: AssemblyCopyright("Copyright © Tugberk Ugurlu 2012")]
 [assembly: AssemblyTrademark("Tugberk Ugurlu")]
 [assembly: AssemblyCulture("")]

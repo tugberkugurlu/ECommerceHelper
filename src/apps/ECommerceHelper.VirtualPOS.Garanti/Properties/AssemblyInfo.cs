@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VirtualPOS.Garanti")]
-[assembly: AssemblyDescription("Gananti Bank VirtualPOS .NET implementation")]
+[assembly: AssemblyTitle("ECommerceHelper.VirtualPOS.Garanti")]
+[assembly: AssemblyDescription("eCommerce helper Gananti Bank VirtualPOS .NET implementation")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tugberk Ugurlu")]
-[assembly: AssemblyProduct("VirtualPOS.Garanti")]
+[assembly: AssemblyProduct("ECommerceHelper.VirtualPOS.Garanti")]
 [assembly: AssemblyCopyright("Copyright © Tugberk Ugurlu 2012")]
 [assembly: AssemblyTrademark("Tugberk Ugurlu")]
 [assembly: AssemblyCulture("")]

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ECommerce.CurrencyConverter")]
-[assembly: AssemblyDescription("ECommerce currency converter project based on TCMB XML daily currency service")]
+[assembly: AssemblyTitle("ECommerceHelper.CurrencyConverter")]
+[assembly: AssemblyDescription("eCommerce helper currency converter project based on TCMB XML daily currency service")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Tugberk Ugurlu")]
-[assembly: AssemblyProduct("ECommerce.CurrencyConverter")]
+[assembly: AssemblyProduct("ECommerceHelper.CurrencyConverter")]
 [assembly: AssemblyCopyright("Copyright © Tugberk Ugurlu 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
