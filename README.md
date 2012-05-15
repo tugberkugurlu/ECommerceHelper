@@ -1,20 +1,20 @@
-#ECommerce Project
-*ECommerce* is a set of .NET libraries which integrates with several eCommerce utilities such as bank APIs, currency converter, etc. for online transactions.
+#ECommerceHelper Project
+*ECommerceHelper* is a set of .NET libraries which integrates with several eCommerce utilities such as bank APIs, currency converter, etc. for online transactions.
 
 #Download
-You can integrate ECommerce into your .NET application through [Nuget](http://nuget.org "http://nuget.org"):
+You can integrate ECommerceHelper into your .NET application through [Nuget](http://nuget.org "http://nuget.org"):
 
-    PM > Install-Package ECommerce
+    PM > Install-Package ECommerceHelper
 
 You can download individual packages separately if you would like to:
 
 **ECommerce.CurrencyConverter**
 
-    PM > Install-Package ECommerce.CurrencyConverter
+    PM > Install-Package ECommerceHelper.CurrencyConverter
 
 **ECommerce.VirtualPOS.Garanti**
 
-    PM > Install-Package ECommerce.VirtualPOS.Garanti
+    PM > Install-Package ECommerceHelper.VirtualPOS.Garanti
 
 #Development Workflow
 `master` branch only holds the latest stable version of the product. Navigate to `dev` branch in order to see latest work.
