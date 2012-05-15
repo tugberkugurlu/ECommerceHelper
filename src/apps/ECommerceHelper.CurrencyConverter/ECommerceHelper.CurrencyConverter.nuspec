@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/tugberkugurlu/ECommerce/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/tugberkugurlu/ECommerce</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>Copyright 2012 Tugberk Ugurlu</copyright>
+    <tags>eCommerce CurrencyConverter Currency Turkey</tags>
+    <dependencies>
+      <dependency id="ECommerceHelper.Common" version="0.2.0.0" />
+    </dependencies>
+  </metadata>
+</package>
