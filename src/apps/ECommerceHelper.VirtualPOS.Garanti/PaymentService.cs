@@ -43,7 +43,7 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
         public PaymentService(
             string merchantId, string terminalId, string provisionUserId,
             string terminalPassword, string userId, Mode mode)
-            : this(merchantId, terminalId, provisionUserId, terminalPassword, userId, Mode.PROD, CardholderPresentCode.Normal) {
+            : this(merchantId, terminalId, provisionUserId, terminalPassword, userId, mode, CardholderPresentCode.Normal) {
         }
 
         public PaymentService(
