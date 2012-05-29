@@ -7,28 +7,27 @@
 ##################################################
 #resources
 ##################################################
+param(
+	$nugetApiKey = "$env:NUGET_API_KEY"
+)
 
-$isPublishing = Read-Host "Would you like to publish your package? (y: Yes, n: No)"
-if($isPublishing -eq "y") { 
+function require-param { 
+    param($value, $paramName)
     
-    #safely find the solutionDir
-    $ps1Dir = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
-    $solutionDir = Split-Path -Path $ps1Dir -Parent
-    
-    $packages = dir "$solutionDir\artifacts\packages\ECommerceHelper.*.nupkg"
-    sal ___nuget .\Nuget.exe
-    
-    $nugetApiKey = Read-Host "Please provide your Nuget API key"
-    
-    foreach($package in $packages) { 
-        #$package is type of System.IO.FileInfo
-        ___nuget push $package.FullName $nugetApiKey
+    if($value -eq $null) { 
+        write-error "The parameter -$paramName is required."
     }
-    
-} elseif ($isPublishing -eq "n") { 
-    
-    
-} else { 
+}
 
-    Write-Host "Invalid value!" -ForegroundColor yellow
+require-param $nugetApiKey -paramName "nugetApiKey"
+
+#safely find the solutionDir
+$ps1Dir = (Split-Path -parent $MyInvocation.MyCommand.Definition)
+$solutionDir = Split-Path -Path $ps1Dir -Parent
+
+$packages = dir "$solutionDir\artifacts\packages\ECommerceHelper.*.nupkg"
+
+foreach($package in $packages) { 
+    #$package is type of System.IO.FileInfo
+    & "$ps1Dir\Nuget.exe" push $package.FullName $nugetApiKey
 }
