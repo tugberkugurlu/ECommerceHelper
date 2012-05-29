@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4B6433
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{CF019D28-026C-4CE8-8594-BB5FF6932895}"
 	ProjectSection(SolutionItems) = preProject
-		ECommerceHelper.build = ECommerceHelper.build
+		ECommerceHelper.msbuild = ECommerceHelper.msbuild
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{C118F0D2-0162-42CD-9873-430FB39F73FB}"

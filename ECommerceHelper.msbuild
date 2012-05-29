@@ -30,14 +30,17 @@
   <Target Name="Init" DependsOnTargets="Clean">
     <MakeDir Directories="@(BuildArtifactsDir);@(PackageOutputDir)" />
   </Target>
-  <Target Name="Compile" DependsOnTargets="Init">
+  <Target Name="PreCompile" DependsOnTargets="Init">
+    <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" />
+  </Target>
+  <Target Name="Compile" DependsOnTargets="PreCompile">
     <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" Properties="OutDir=%(BuildArtifactsDir.FullPath);Configuration=$(Configuration)" />
   </Target>
   <Target Name="Package">
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.Common\ECommerceHelper.Common.csproj -OutputDirectory ..\artifacts\packages" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.CurrencyConverter\ECommerceHelper.CurrencyConverter.csproj -OutputDirectory ..\artifacts\packages" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.VirtualPOS.Garanti\ECommerceHelper.VirtualPOS.Garanti.csproj -OutputDirectory ..\artifacts\packages" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper\ECommerceHelper.nuspec -OutputDirectory ..\artifacts\packages" />
+    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.Common\ECommerceHelper.Common.csproj -OutputDirectory ..\artifacts\packages -Prop Configuration=$(Configuration)" />
+    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.CurrencyConverter\ECommerceHelper.CurrencyConverter.csproj -OutputDirectory ..\artifacts\packages  -Prop Configuration=$(Configuration)" />
+    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.VirtualPOS.Garanti\ECommerceHelper.VirtualPOS.Garanti.csproj -OutputDirectory ..\artifacts\packages  -Prop Configuration=$(Configuration)" />
+    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper\ECommerceHelper.nuspec -OutputDirectory ..\artifacts\packages -Prop Configuration=$(Configuration)" />
   </Target>
   <Target Name="PublishPackage">
     <Exec WorkingDirectory="%(ToolsDir.FullPath)" Command="powershell -file .\publish.ps1" />
