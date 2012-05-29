@@ -5,8 +5,8 @@
     <version>0.2.0.0</version>
     <authors>Tugberk Ugurlu</authors>
     <owners>Tugberk Ugurlu</owners>
-    <licenseUrl>https://github.com/tugberkugurlu/ECommerce/blob/master/LICENSE.md</licenseUrl>
-    <projectUrl>https://github.com/tugberkugurlu/ECommerce</projectUrl>
+    <licenseUrl>https://github.com/tugberkugurlu/ECommerceHelper/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/tugberkugurlu/ECommerceHelper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>A .NET eCommerce helper library which is specific for Turkish companies</summary>
     <description>A .NET eCommerce helper library which is specific for Turkish companies. This package includes a currency converter based on TCMB daily currency XML service and virtual POS implementation of Garanti Bank</description>

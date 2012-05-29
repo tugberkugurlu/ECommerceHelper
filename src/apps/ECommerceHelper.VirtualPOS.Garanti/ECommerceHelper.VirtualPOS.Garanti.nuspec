@@ -6,14 +6,14 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/tugberkugurlu/ECommerce/blob/master/LICENSE.md</licenseUrl>
-    <projectUrl>https://github.com/tugberkugurlu/ECommerce</projectUrl>
+    <licenseUrl>https://github.com/tugberkugurlu/ECommerceHelper/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/tugberkugurlu/ECommerceHelper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright 2012</copyright>
     <tags>eCommerce VirtualPOS SanalPOS GarantiBank Turkey</tags>
     <dependencies>
-      <dependency id="ECommerceHelper.Common" version="0.2.0.0" />
+      <dependency id="ECommerceHelper.Common" version="0.2.1" />
     </dependencies>
   </metadata>
 </package>

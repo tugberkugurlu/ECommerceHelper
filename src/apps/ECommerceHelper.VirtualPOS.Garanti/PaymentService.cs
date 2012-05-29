@@ -135,7 +135,7 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
                     UserID = _userId,
                     HashData = PaymentUtility.GenerateHASHedData(
                         _terminalId,
-                        paymentRequest.CreditCardNumber,
+                        paymentRequest.CreditCardNumber.ToString(),
                         PaymentUtility.EncodeDecimalPaymentAmount(
                             paymentRequest.PaymentAmount
                         ),
@@ -147,11 +147,11 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
                     IPAddress = paymentRequest.IpAddress
                 },
                 Card = new Card {
-                    Number = paymentRequest.CreditCardNumber,
+                    Number = paymentRequest.CreditCardNumber.ToString(),
                     ExpireDate = PaymentUtility.EncodeExpireDate(
                         paymentRequest.CCExpireDateMonth, paymentRequest.CCExpireDateYear
                     ),
-                    CVV2 = paymentRequest.CVV2
+                    CVV2 = paymentRequest.CVV2.ToString()
                 },
                 Transaction = new TransactionRequest {
                     CardholderPresentCodeDigit = _cardholderPresentCode.GetHashCode(),

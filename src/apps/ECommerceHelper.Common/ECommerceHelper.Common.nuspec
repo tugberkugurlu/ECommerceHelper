@@ -6,8 +6,8 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/tugberkugurlu/ECommerce/blob/master/LICENSE.md</licenseUrl>
-    <projectUrl>https://github.com/tugberkugurlu/ECommerce</projectUrl>
+    <licenseUrl>https://github.com/tugberkugurlu/ECommerceHelper/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/tugberkugurlu/ECommerceHelper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>Copyright 2012 Tugberk Ugurlu</copyright>
