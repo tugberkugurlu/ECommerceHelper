@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <Target Name="Default" DependsOnTargets="Compile; Package" />
+  <Target Name="DefaultCI" DependsOnTargets="Compile; Package; PublishPackage" />
   
   <Target Name="Clean">
     <RemoveDir Directories="@(BuildArtifactsDir)" />
