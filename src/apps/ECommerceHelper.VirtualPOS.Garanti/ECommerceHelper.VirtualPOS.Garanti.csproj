@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfo.Common.cs">
+      <Link>AssemblyInfo.Common.cs</Link>
+    </Compile>
     <Compile Include="Descriptor\Request\Card.cs" />
     <Compile Include="Descriptor\Request\Customer.cs" />
     <Compile Include="Descriptor\Request\Order.cs" />

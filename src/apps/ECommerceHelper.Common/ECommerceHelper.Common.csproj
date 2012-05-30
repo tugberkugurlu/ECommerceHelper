@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Common\AssemblyInfo.Common.cs">
+      <Link>AssemblyInfo.Common.cs</Link>
+    </Compile>
     <Compile Include="Card.cs" />
     <Compile Include="CardInfo.cs" />
     <Compile Include="Enums\CurrencyCode.cs" />

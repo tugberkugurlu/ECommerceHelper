@@ -8,10 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ECommerceHelper.VirtualPOS.Garanti")]
 [assembly: AssemblyDescription("eCommerce helper Gananti Bank VirtualPOS .NET implementation")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Tugberk Ugurlu")]
 [assembly: AssemblyProduct("ECommerceHelper.VirtualPOS.Garanti")]
-[assembly: AssemblyCopyright("Copyright © Tugberk Ugurlu 2012")]
-[assembly: AssemblyTrademark("Tugberk Ugurlu")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -21,16 +18,3 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("8a707337-bed4-41b8-946b-7fee968ce7cc")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-//[assembly: AssemblyVersion("0.1.*")]
-[assembly: AssemblyVersion("0.2.3")]
-[assembly: AssemblyInformationalVersion("0.2.3")]
