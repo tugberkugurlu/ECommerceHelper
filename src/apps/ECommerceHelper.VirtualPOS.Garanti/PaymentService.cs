@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using System.Net.Http.Formatting;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;

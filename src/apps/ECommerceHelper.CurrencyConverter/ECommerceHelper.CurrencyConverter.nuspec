@@ -13,7 +13,7 @@
     <copyright>Copyright 2012 Tugberk Ugurlu</copyright>
     <tags>eCommerce CurrencyConverter Currency Turkey</tags>
     <dependencies>
-      <dependency id="ECommerceHelper.Common" version="0.2.4" />
+      <dependency id="ECommerceHelper.Common" version="0.3.0" />
     </dependencies>
   </metadata>
 </package>
