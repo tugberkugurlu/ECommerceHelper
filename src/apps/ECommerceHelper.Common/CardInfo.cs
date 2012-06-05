@@ -61,7 +61,7 @@ namespace ECommerceHelper.Common {
 
         private static string getXMLContent() {
 
-            using (Stream stream = typeof(CardInfo).Assembly.GetManifestResourceStream(string.Format("ECommerce.Common.Resources.{0}", "CardsInfo.xml")))
+            using (Stream stream = typeof(CardInfo).Assembly.GetManifestResourceStream(string.Format("ECommerceHelper.Common.Resources.{0}", "CardsInfo.xml")))
             using (StreamReader streamReader = new StreamReader(stream))
                 return streamReader.ReadToEnd();
         }

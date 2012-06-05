@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ECommerceHelper</id>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <authors>Tugberk Ugurlu</authors>
     <owners>Tugberk Ugurlu</owners>
     <licenseUrl>https://github.com/tugberkugurlu/ECommerceHelper/blob/master/LICENSE.md</licenseUrl>
@@ -13,8 +13,8 @@
     <copyright>Copyright 2012 Tugberk</copyright>
     <tags>eCommerce CurrencyConverter Currency VirtualPOS SanalPOS GarantiBank Turkey</tags>
     <dependencies>
-      <dependency id="ECommerceHelper.CurrencyConverter" version="0.3.0" />
-      <dependency id="ECommerceHelper.VirtualPOS.Garanti" version="0.3.0" />
+      <dependency id="ECommerceHelper.CurrencyConverter" version="0.3.1" />
+      <dependency id="ECommerceHelper.VirtualPOS.Garanti" version="0.3.1" />
     </dependencies>
   </metadata>
 </package>
