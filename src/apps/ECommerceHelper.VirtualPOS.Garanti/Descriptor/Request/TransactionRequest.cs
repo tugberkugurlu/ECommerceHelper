@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace ECommerceHelper.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    internal class TransactionRequest {
+    public class TransactionRequest {
 
         /// <summary>
         /// Defines the type of operation in digits in regards of CardholderPresentCode public property.

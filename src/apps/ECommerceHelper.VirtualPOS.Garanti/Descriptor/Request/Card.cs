@@ -6,7 +6,7 @@ using System.Text;
 namespace ECommerceHelper.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    internal class Card {
+    public class Card {
 
         public string Number { get; set; }
         public string ExpireDate { get; set; }

@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace ECommerceHelper.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
-    internal class Terminal {
+    public class Terminal {
 
         public string ID { get; set; }
         public string ProvUserID { get; set; }

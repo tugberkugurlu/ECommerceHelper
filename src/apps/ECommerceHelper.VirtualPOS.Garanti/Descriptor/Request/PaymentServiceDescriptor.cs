@@ -8,7 +8,7 @@ namespace ECommerceHelper.VirtualPOS.Garanti.Descriptor.Request {
 
     [Serializable]
     [XmlRoot("GVPSRequest")]
-    internal class PaymentServiceDescriptor {
+    public class PaymentServiceDescriptor {
 
         [XmlElement("Mode")]
         public string ModeString { get; set; }
