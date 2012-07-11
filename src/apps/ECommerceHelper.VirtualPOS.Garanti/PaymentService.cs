@@ -150,7 +150,8 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
                     ExpireDate = PaymentUtility.EncodeExpireDate(
                         paymentRequest.CCExpireDateMonth, paymentRequest.CCExpireDateYear
                     ),
-                    CVV2 = paymentRequest.CVV2.ToString()
+                    //TODO: This is a temp fix. Make this better.
+                    CVV2 = (paymentRequest.CVV2.ToString().Length < 3) ? string.Format("0{0}", paymentRequest.CVV2.ToString()) : paymentRequest.CVV2.ToString()
                 },
                 Transaction = new TransactionRequest {
                     CardholderPresentCodeDigit = _cardholderPresentCode.GetHashCode(),
