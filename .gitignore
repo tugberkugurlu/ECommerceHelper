@@ -11,9 +11,9 @@ dist
 
 *~
 
-docs
+_docs
 packages
-Artifacts
+artifacts
 
 *.swp
 TestResult.xml
