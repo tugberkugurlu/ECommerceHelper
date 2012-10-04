@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceHelper.VirtualPOS.Garanti {
 
-    public interface IPaymentService : IDisposable {
+    public interface IPaymentService {
 
         Task<PaymentResponseContext> ProcessSaleAsync(PaymentRequestContext paymentRequest);
     }

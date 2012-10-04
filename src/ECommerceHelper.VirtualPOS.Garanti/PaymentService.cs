@@ -6,12 +6,11 @@ using System.Net.Http;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
-using ECommerceHelper.VirtualPOS.Garanti.Descriptor;
 using ECommerceHelper.VirtualPOS.Garanti.Descriptor.Response;
 using ECommerceHelper.VirtualPOS.Garanti.Descriptor.Request;
+using System.Collections.ObjectModel;
 
 namespace ECommerceHelper.VirtualPOS.Garanti {
 
@@ -26,8 +25,6 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
         private readonly string _userId;
         private readonly Mode _mode;
         private readonly CardholderPresentCode _cardholderPresentCode;
-
-        private readonly HttpClient _httpClient;
 
         public PaymentService(
             string merchantId, string terminalId, string provisionUserId, 
@@ -78,31 +75,31 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
             _userId = userId;
             _mode = mode;
             _cardholderPresentCode = cardholderPresentCode;
-
-            _httpClient = new HttpClient();
         }
 
-        public async Task<PaymentResponseContext> ProcessSaleAsync(PaymentRequestContext paymentRequest) {
+        public Task<PaymentResponseContext> ProcessSaleAsync(PaymentRequestContext paymentRequest) {
 
             if (paymentRequest == null)
                 throw new ArgumentNullException("paymentRequest");
 
             //validate the PaymentRequestContext instance comming in
-            var ctxValResults = validatePaymentRequestContext(paymentRequest);
+            ICollection<ValidationResult> ctxValResults = validatePaymentRequestContext(paymentRequest);
             if (ctxValResults.Any()) {
 
-                return new PaymentResponseContext {
+                var invalidPaymentResponseCtx = new PaymentResponseContext {
 
                     ResponseCode = PaymentResponseCode.InvalidPaymentRequestContext,
                     ValidationResults = ctxValResults
                 };
+
+                return TaskHelpers.FromResult(invalidPaymentResponseCtx);
             }
 
             //PaymentRequestContext instance is valid. Continue.
             var paymentServiceDescriptor = createPaymentServiceDescriptor(paymentRequest);
             var requestXML = seserializePaymentRequest(paymentServiceDescriptor);
 
-            return await processPaymentRequest(requestXML);
+            return processPaymentRequest(requestXML);
         }
 
         //private helpers
@@ -115,7 +112,7 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
             ValidationContext validationContext = 
                 new ValidationContext(paymentRequest, null, null);
 
-            List<ValidationResult> valResults = new List<ValidationResult>();
+            var valResults = new Collection<ValidationResult>();
             Validator.TryValidateObject(paymentRequest, validationContext, valResults, true);
 
             return valResults;
@@ -184,22 +181,45 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
             return output.ToString();
         }
 
-        private async Task<PaymentResponseContext> processPaymentRequest(string requestXML) {
-
-            var formattedContent = string.Format("data={0}", requestXML);
+        private Task<PaymentResponseContext> processPaymentRequest(string requestXML) {
 
             //NOTE: Garanti Bank accepts the request as application/x-www-form-urlencoded
-            var content = new StringContent(formattedContent);
+
+            TaskCompletionSource<PaymentResponseContext> tcs = new TaskCompletionSource<PaymentResponseContext>();
+            string formattedContent = string.Format("data={0}", requestXML);
+            StringContent content = new StringContent(formattedContent);
             content.Headers.ContentType.MediaType = "application/x-www-form-urlencoded";
 
-            var response = await _httpClient.PostAsync(
-                Constants.BASE_VIRTUAL_POS_REQUEST_ADDRESS, content
-            );
+            HttpClient httpClient = new HttpClient();
 
-            var stringContent = await response.Content.ReadAsStringAsync();
-            var paymentResponseCtx = deseserializePaymentResponse(stringContent);
+            return httpClient.PostAsync(Constants.BASE_VIRTUAL_POS_REQUEST_ADDRESS, content).Then<HttpResponseMessage, PaymentResponseContext>(response => {
 
-            return paymentResponseCtx;
+                // Note the best way to handle this but will do the work
+                response.EnsureSuccessStatusCode();
+
+                return response.Content.ReadAsStringAsync().Then<string, PaymentResponseContext>(stringResult => {
+
+                    var paymentResponseCtx = deseserializePaymentResponse(stringResult);
+
+                    try {
+
+                        tcs.SetResult(paymentResponseCtx);
+                    }
+                    catch (Exception ex) {
+
+                        tcs.SetException(ex);
+                    }
+
+                    return tcs.Task;
+
+                }, runSynchronously: true);
+
+            }, runSynchronously: true).Catch<PaymentResponseContext>(info => {
+
+                tcs.SetException(info.Exception);
+                return new CatchInfoBase<Task<PaymentResponseContext>>.CatchResult { Task = tcs.Task };
+
+            }).Finally(() => httpClient.Dispose(), runSynchronously: true);
         }
 
         private PaymentResponseContext deseserializePaymentResponse(string paymentResponseString) {
@@ -214,11 +234,6 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
                     PaymentResponseDescriptor = paymentResponseDescriptor
                 };
             }
-        }
-
-        public void Dispose() {
-
-            _httpClient.Dispose();
         }
     }
 }
