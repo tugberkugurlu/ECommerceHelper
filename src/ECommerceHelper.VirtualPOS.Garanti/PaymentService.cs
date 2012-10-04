@@ -194,7 +194,7 @@ namespace ECommerceHelper.VirtualPOS.Garanti {
 
             return httpClient.PostAsync(Constants.BASE_VIRTUAL_POS_REQUEST_ADDRESS, content).Then<HttpResponseMessage, PaymentResponseContext>(response => {
 
-                // Note the best way to handle this but will do the work
+                // Note: Not the best way to handle this but will do the work
                 response.EnsureSuccessStatusCode();
 
                 return response.Content.ReadAsStringAsync().Then<string, PaymentResponseContext>(stringResult => {
