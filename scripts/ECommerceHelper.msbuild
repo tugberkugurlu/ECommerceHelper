@@ -3,48 +3,40 @@
          ToolsVersion="4.0"
          DefaultTargets="Default">
 
-  <PropertyGroup Condition="'$(Configuration)' == ''">
-    <Configuration>Debug</Configuration>
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$([System.IO.Path]::GetDirectoryName($(MSBuildProjectDirectory)))</SolutionDir>
+    <ScriptsDir>$(SolutionDir)\scripts</ScriptsDir>
+    <NugetExeDir>$(SolutionDir)\.nuget</NugetExeDir>
+    <Solutionfile>$(SolutionDir)\ECommerceHelper.sln</Solutionfile>
+    <BuildArtifactsDir>$(SolutionDir)\artifacts</BuildArtifactsDir>
+    <NuGetPackageOutputDir>$(BuildArtifactsDir)\packages</NuGetPackageOutputDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <BuildArtifactsDir Include=".\artifacts" />
-    <PackageOutputDir Include=".\artifacts\packages" />
-    <Solutionfile Include=".\ECommerceHelper.sln" />
-    <AppProjFiles Include=".\src\apps\**\*.csproj" />
-    <TestProjFiles Include=".\src\test\**\*.csproj" />
-    <ToolsDir Include=".\tools\" />
-    <NugetExeDir Include=".\tools\" />
-
-    <ECommerceCommonProjFile Include=".\src\apps\ECommerceHelper.Common\ECommerceHelper.Common.csproj" />
-    <ECommerceCurrencyConverterProjFile Include=".\src\apps\ECommerceHelper.CurrencyConverter\ECommerceHelper.CurrencyConverter.csproj" />
-    <ECommerceVirtualPOSGarantiProjFile Include=".\src\apps\ECommerceHelper.VirtualPOS.Garanti\ECommerceHelper.VirtualPOS.Garanti.csproj" />
-    <ECommerceNuspecFile Include=".\src\apps\ECommerceHelper\ECommerceHelper.nuspec" />
+    <AppProjFiles Include="$(SolutionDir)\src\**\*.csproj" />
+    <TestProjFiles Include="$(SolutionDir)\tests\**\*.csproj" />
+    <NuGetPackageProjects Include="$(SolutionDir)\src\ECommerceHelper.Common\ECommerceHelper.Common.csproj;$(SolutionDir)\src\ECommerceHelper.CurrencyConverter\ECommerceHelper.CurrencyConverter.csproj;$(SolutionDir)\src\ECommerceHelper.VirtualPOS.Garanti\ECommerceHelper.VirtualPOS.Garanti.csproj" />
+    <NuGetPackageManifests Include="$(SolutionDir)\src\ECommerceHelper\ECommerceHelper.nuspec" />
   </ItemGroup>
 
   <Target Name="Default" DependsOnTargets="Compile; Package" />
   <Target Name="DefaultCI" DependsOnTargets="Compile; Package; PublishPackage" />
   
   <Target Name="Clean">
-    <RemoveDir Directories="@(BuildArtifactsDir)" />
+    <RemoveDir Directories="$(BuildArtifactsDir)" />
   </Target>
   <Target Name="Init" DependsOnTargets="Clean">
-    <MakeDir Directories="@(BuildArtifactsDir);@(PackageOutputDir)" />
+    <MakeDir Directories="$(BuildArtifactsDir);$(NuGetPackageOutputDir)" />
   </Target>
-  <Target Name="PreCompile" DependsOnTargets="Init">
-    <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" />
-  </Target>
-  <Target Name="Compile" DependsOnTargets="PreCompile">
-    <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" Properties="OutDir=%(BuildArtifactsDir.FullPath);Configuration=$(Configuration)" />
+  <Target Name="Compile" DependsOnTargets="Init">
+    <MSBuild Projects="@(AppProjFiles)" Targets="Rebuild" Properties="OutDir=$(BuildArtifactsDir);Configuration=$(Configuration)" />
   </Target>
   <Target Name="Package">
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.Common\ECommerceHelper.Common.csproj -OutputDirectory ..\artifacts\packages -Prop Configuration=$(Configuration)" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.CurrencyConverter\ECommerceHelper.CurrencyConverter.csproj -OutputDirectory ..\artifacts\packages  -Prop Configuration=$(Configuration)" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper.VirtualPOS.Garanti\ECommerceHelper.VirtualPOS.Garanti.csproj -OutputDirectory ..\artifacts\packages  -Prop Configuration=$(Configuration)" />
-    <Exec WorkingDirectory="%(NugetExeDir.FullPath)" Command="nuget.exe pack ..\src\apps\ECommerceHelper\ECommerceHelper.nuspec -OutputDirectory ..\artifacts\packages -Prop Configuration=$(Configuration)" />
+    <Exec Command="$(NugetExeDir)\nuget.exe pack %(NuGetPackageProjects.FullPath) -Build -Symbols -OutputDirectory $(NuGetPackageOutputDir) -Verbose" />
+    <Exec Command="$(NugetExeDir)\nuget.exe pack %(NuGetPackageManifests.FullPath) -OutputDirectory $(NuGetPackageOutputDir) -Verbose" />
   </Target>
   <Target Name="PublishPackage">
-    <Exec WorkingDirectory="%(ToolsDir.FullPath)" Command="powershell -file .\publish.ps1" />
+    <Exec Command="powershell -file $(ScriptsDir)\publish.ps1" />
   </Target>
-  
 </Project>

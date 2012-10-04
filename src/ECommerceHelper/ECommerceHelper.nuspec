@@ -2,19 +2,19 @@
 <package >
   <metadata>
     <id>ECommerceHelper</id>
-    <version>0.3.3</version>
+    <version>0.4.0-pre01</version>
     <authors>Tugberk Ugurlu</authors>
     <owners>Tugberk Ugurlu</owners>
     <licenseUrl>https://github.com/tugberkugurlu/ECommerceHelper/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/tugberkugurlu/ECommerceHelper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <summary>A .NET eCommerce helper library which is specific for Turkish companies</summary>
-    <description>A .NET eCommerce helper library which is specific for Turkish companies. This package includes a currency converter based on TCMB daily currency XML service and virtual POS implementation of Garanti Bank</description>
+    <summary>A .NET ECommerceHelper library which is specific for Turkish companies</summary>
+    <description>A .NET ECommerceHelper library which is specific for Turkish companies. This package includes a currency converter based on TCMB daily currency XML service and virtual POS implementation of Garanti Bank</description>
     <copyright>Copyright 2012 Tugberk</copyright>
     <tags>eCommerce CurrencyConverter Currency VirtualPOS SanalPOS GarantiBank Turkey</tags>
     <dependencies>
-      <dependency id="ECommerceHelper.CurrencyConverter" version="0.3.3" />
-      <dependency id="ECommerceHelper.VirtualPOS.Garanti" version="0.3.3" />
+      <dependency id="ECommerceHelper.CurrencyConverter" version="0.4.0-pre01" />
+      <dependency id="ECommerceHelper.VirtualPOS.Garanti" version="0.4.0-pre01" />
     </dependencies>
   </metadata>
 </package>
